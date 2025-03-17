@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_flutter_app/home_page.dart';
+import 'package:my_flutter_app/profile_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,9 +15,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.green,
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.green, 
-        ),
+        appBarTheme: const AppBarTheme(backgroundColor: Colors.green),
       ),
       home: const RootPage(),
     );
@@ -32,40 +31,35 @@ class RootPage extends StatefulWidget {
 
 class _RootPageState extends State<RootPage> {
   int currentPage = 0;
+  List<Widget> pages = const [HomePage(), ProfilePage()];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Flutter')),
 
- 
-      body: const HomePage(),
-
+      body: pages[currentPage],
 
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           debugPrint('Floating Action Button');
         },
-        backgroundColor: Colors.green, 
-        child: const Icon(Icons.add, color: Colors.white,),
+        backgroundColor: Colors.green,
+        child: const Icon(Icons.add, color: Colors.white),
       ),
 
-
-
-
       bottomNavigationBar: NavigationBar(
-        selectedIndex: currentPage, 
+        selectedIndex: currentPage,
 
-        destinations: const [ 
+        destinations: const [
           NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
           NavigationDestination(icon: Icon(Icons.person), label: 'Profile'),
         ],
 
-        onDestinationSelected: (int index) { 
-        setState(() {
-          currentPage = index;
-        });
-
+        onDestinationSelected: (int index) {
+          setState(() {
+            currentPage = index;
+          });
         },
       ),
     );
